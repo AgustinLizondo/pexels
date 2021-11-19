@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagesShower from './screens/home/components/ImagesShower';
+import ImageDetails from './screens/detailed/components/ImageDetails';
 
 // import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
@@ -21,20 +22,20 @@ const styles = StyleSheet.create({
 }
 )
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 
   const [searchTerm, setSearchTerm] = useState('programming');
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <TextInput 
+      <TextInput
         style={styles.textInput}
         onChangeText={
           (text) => setSearchTerm(text)
         }
         placeholder='Search'
       />
-      <ImagesShower searchTerm={searchTerm} />
+      <ImagesShower searchTerm={searchTerm} navigation={navigation} />
     </View>
   )
 }
@@ -42,6 +43,14 @@ const ProfileScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Profile</Text>
+    </View>
+  )
+}
+export const DetailedScreen = ({item}) => {
+  console.log(item)
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <ImageDetails img={item} />
     </View>
   )
 }
@@ -58,6 +67,10 @@ const ChangingIcon = ({ route }) => ({
       iconName = focused
         ? 'person-sharp'
         : 'person-outline';
+    } else if (route.name === 'Detailed') {
+      iconName = focused
+        ? 'information-circle'
+        : 'information-circle-outline';
     }
     return <Ionicons name={iconName} size={size} color={color} />;
   },
@@ -73,6 +86,7 @@ export default function App() {
         screenOptions={ChangingIcon}>
         <Tab.Screen name='Home' component={HomeScreen} />
         <Tab.Screen name='Profile' component={ProfileScreen} />
+        <Tab.Screen name='Detailed' component={DetailedScreen} />
       </Tab.Navigator>
     </NavigationContainer >
   );

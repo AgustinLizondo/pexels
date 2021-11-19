@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ImageList from './ImageList'
 import { getData } from '../api/pexels'
 
-const ImagesShower = ({searchTerm}) => {
+const ImagesShower = ({ searchTerm, navigation }) => {
 
     const [photos, setPhotos] = useState([])
 
@@ -26,7 +26,7 @@ const ImagesShower = ({searchTerm}) => {
     }, []);
 
     return (
-        <ImageList photos={photos} />
+        <ImageList photos={photos} navigation={navigation} />
     )
 }
 

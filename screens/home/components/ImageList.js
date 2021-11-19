@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { DetailedScreen } from '../../../App';
 //StatusBar
 
 const windowWidth = Dimensions.get('window').width;
@@ -20,15 +21,15 @@ const styles = StyleSheet.create({
         padding: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        width: windowWidth -16,
+        width: windowWidth - 16,
         backgroundColor: '#555',
         borderRadius: 8,
         marginBottom: 8,
         marginLeft: 8,
     },
     image: {
-        width: windowWidth -16,
-        height: windowWidth -16,
+        width: windowWidth - 16,
+        height: windowWidth - 16,
         borderRadius: 4,
     },
     text: {
@@ -37,45 +38,49 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
     },
-    baseButtons:{
+    baseButtons: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
     }
 })
 
-const ImageList = ({ photos }) => {
-    
+const ImageList = ({ photos, navigation }) => {
+
     const [likedPhotos, setLikedPhotos] = useState([]);
 
-    const handlePress = (item)=>{
+    const handlePress = (item) => {
         likedPhotos.includes(item)
-            ? setLikedPhotos((prevState)=> prevState.filter(itemToRemove => itemToRemove !== item))
-            : setLikedPhotos((prevState)=>[...prevState, item]);
+            ? setLikedPhotos((prevState) => prevState.filter(itemToRemove => itemToRemove !== item))
+            : setLikedPhotos((prevState) => [...prevState, item]);
     }
 
     const renderItem = (({ item }) => (
         <View style={styles.item}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                navigation.navigate('Detailed');
+                DetailedScreen(item);
+            }
+            }>
                 <Image source={
                     {
                         uri: item.photoSRCL
                     }
                 }
-                style={styles.image}
+                    style={styles.image}
                 />
             </TouchableOpacity>
             <View style={styles.baseButtons}>
                 <Text style={styles.text} >{item.photographer}</Text>
-                <FontAwesomeIcon 
-                    icon={faStar} 
+                <FontAwesomeIcon
+                    icon={faStar}
                     size={24}
                     color={
                         likedPhotos.includes(item)
                             ? ('yellow')
                             : ('white')
-                    } 
-                    onPress={ () => handlePress(item) }
+                    }
+                    onPress={() => handlePress(item)}
                 />
             </View>
         </View>
