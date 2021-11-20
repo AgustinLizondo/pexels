@@ -1,20 +1,34 @@
-import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native'
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../../ContextAPI/provider';
+import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: windowWidth,
+        height: windowHeight - 110,
+    },
+    image: {
+        width: windowWidth,
+        height: 500,
     }
 });
 
-const ImageDetails = (img) => {
-    console.log(img)
+const ImageDetails = (item) => {
+    const [detailedImage, setDetailedImage] = useContext(AppContext);
 
     return (
         <View style={styles.container}>
-            <Image />
+            <Text>{detailedImage.photographer}</Text>
+            <Image source={
+                {
+                    uri: detailedImage.photoSRCL
+                }
+            }
+                style={styles.image}
+            />
         </View>
     )
 }

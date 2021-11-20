@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagesShower from './screens/home/components/ImagesShower';
 import ImageDetails from './screens/detailed/components/ImageDetails';
+import MyProvider from './screens/ContextAPI/provider';
 
 // import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
@@ -17,8 +18,8 @@ const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
   textInput: {
-    marginTop: 32,
-  }
+    padding: 16,
+  },
 }
 )
 
@@ -27,31 +28,30 @@ const HomeScreen = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('programming');
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={
-          (text) => setSearchTerm(text)
-        }
-        placeholder='Search'
-      />
-      <ImagesShower searchTerm={searchTerm} navigation={navigation} />
-    </View>
+    <MyProvider style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={
+            (text) => setSearchTerm(text)
+          }
+          placeholder='Search'
+        />
+        <ImagesShower searchTerm={searchTerm} navigation={navigation} />
+    </MyProvider>
   )
 }
 const ProfileScreen = () => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Profile</Text>
-    </View>
+    <MyProvider style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Profile</Text>
+    </MyProvider>
   )
 }
-export const DetailedScreen = ({item}) => {
-  console.log(item)
+export const DetailedScreen = ({ item }) => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <ImageDetails img={item} />
-    </View>
+    <MyProvider style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ImageDetails img={item} />
+    </MyProvider>
   )
 }
 

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useContext } from 'react';
+import { AppContext } from '../../ContextAPI/provider';
 import { View, Text, FlatList, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import ImageDetails from '../../detailed/components/ImageDetails';
 import { DetailedScreen } from '../../../App';
 //StatusBar
 
@@ -10,7 +12,6 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
 const ImageList = ({ photos, navigation }) => {
 
     const [likedPhotos, setLikedPhotos] = useState([]);
+    const [detailedImage, setDetailedImage] = useContext(AppContext);
 
     const handlePress = (item) => {
         likedPhotos.includes(item)
@@ -58,8 +60,8 @@ const ImageList = ({ photos, navigation }) => {
     const renderItem = (({ item }) => (
         <View style={styles.item}>
             <TouchableOpacity onPress={() => {
+                setDetailedImage({ object: detailedObject });
                 navigation.navigate('Detailed');
-                DetailedScreen(item);
             }
             }>
                 <Image source={
