@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { DataContext } from '../../ContextAPI/provider';
-import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, Image, Dimensions, TouchableOpacity, Linking } from 'react-native'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -8,11 +8,11 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     container: {
         width: windowWidth,
-        height: windowHeight - 110,
+        height: windowHeight - 100,
     },
     image: {
         width: windowWidth,
-        height: 500,
+        height: windowHeight - 100,
     },
     phname: {
         top: -48,
@@ -27,7 +27,11 @@ const styles = StyleSheet.create({
 
 const ImageDetails = () => {
 
-    const  {detailedImage} = useContext(DataContext);
+    // const handleOpenPh = (url) => {
+        // Linking.openURL(url);
+    // }
+
+    const { detailedImage } = useContext(DataContext);
     return (
         <View style={styles.container}>
             <Image source={
@@ -37,9 +41,17 @@ const ImageDetails = () => {
             }
                 style={styles.image}
             />
-            <Text style={styles.phname}>{detailedImage.photographer}</Text>
+            {/* <TouchableOpacity onPress={() => handleOpenPh(detailedImage.photographerURL)}> */}
+                <Text style={styles.phname}>{detailedImage.photographer}</Text>
+            {/* </TouchableOpacity> */}
         </View>
     )
 }
 
 export default ImageDetails
+
+// id: 945375,
+// photographer: 'Photographer Name',
+// photographerURL: null,
+// photoSRCM: DEFAULT_IMAGE,
+// photoSRCL: DEFAULT_IMAGE,

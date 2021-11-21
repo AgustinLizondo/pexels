@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { KeyboardAvoidingView, View, Text, TextInput, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagesShower from './screens/home/components/ImagesShower';
 import ImageDetails from './screens/detailed/components/ImageDetails';
-import DataProvider from './screens/ContextAPI/provider';
+import DataProvider, { DataContext } from './screens/ContextAPI/provider';
 
 // import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
@@ -19,39 +19,41 @@ const Tab = createBottomTabNavigator();
 const styles = StyleSheet.create({
   textInput: {
     padding: 8,
-    marginTop: 32,
+    marginTop: 48,
   },
 }
 )
 
 const HomeScreen = ({ navigation }) => {
 
-  const [searchTerm, setSearchTerm] = useState('programming');
+  const { setSearchTerm } = useContext(DataContext);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={
-            (text) => setSearchTerm(text)
+      <TextInput
+        style={styles.textInput}
+        onChangeText={
+          (text) => {
+            setSearchTerm(text);
           }
-          placeholder='Search'
-        />
-        <ImagesShower searchTerm={searchTerm} navigation={navigation} />
+        }
+        placeholder='Search'
+      />
+      <ImagesShower navigation={navigation} />
     </View>
   )
 }
 const ProfileScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Profile</Text>
+      <Text>Profile</Text>
     </View>
   )
 }
 export const DetailedScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ImageDetails />
+      <ImageDetails />
     </View>
   )
 }

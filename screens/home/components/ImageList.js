@@ -16,16 +16,14 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: 'center',
         width: windowWidth,
-        height: windowHeight - 110,
+        height: windowHeight - 100,
     },
     item: {
         padding: 0,
         justifyContent: 'center',
         alignItems: 'center',
         width: windowWidth - 16,
-        backgroundColor: '#555',
         borderRadius: 8,
-        marginBottom: 8,
         marginLeft: 8,
     },
     image: {
@@ -40,7 +38,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     baseButtons: {
-        display: 'flex',
+        width: windowWidth -16,
+        backgroundColor: 'rgba(50,50,50,0.5)',
+        justifyContent: 'space-evenly',
+        top: -48, 
         flexDirection: 'row',
         alignItems: 'center',
     }
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
 const ImageList = ({ photos, navigation }) => {
 
     const [likedPhotos, setLikedPhotos] = useState([]);
-    const {detailedImage, setDetailedImage} = useContext(DataContext);
+    const { setDetailedImage} = useContext(DataContext);
 
     const handleLike = (item) => {
         likedPhotos.includes(item)

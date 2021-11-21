@@ -15,9 +15,10 @@ const defaultContent = {
 const DataProvider = ({ children }) => {
 
     const [detailedImage, setDetailedImage] = useState(defaultContent);
+    const [searchTerm, setSearchTerm] = useState('programming');
 
     return (
-        <DataContext.Provider value={{detailedImage, setDetailedImage}}>
+        <DataContext.Provider value={{detailedImage, setDetailedImage, searchTerm, setSearchTerm}}>
              {children}
         </DataContext.Provider>
     )

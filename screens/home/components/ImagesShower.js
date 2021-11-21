@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import ImageList from './ImageList'
 import { getData } from '../api/pexels'
+import { DataContext } from '../../ContextAPI/provider'
 
-const ImagesShower = ({ searchTerm, navigation }) => {
+const ImagesShower = ({ navigation }) => {
 
-    const [photos, setPhotos] = useState([])
+    const [photos, setPhotos] = useState([]);
+    const { searchTerm } = useContext(DataContext);
 
     const loadImages = async () => {
         const res = await getData(searchTerm),
