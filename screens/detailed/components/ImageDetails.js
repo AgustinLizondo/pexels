@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { AppContext } from '../../ContextAPI/provider';
+import React, { useState, useContext, useEffect } from 'react';
+import { DataContext } from '../../ContextAPI/provider';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
 
 const windowWidth = Dimensions.get('window').width;
@@ -13,15 +13,23 @@ const styles = StyleSheet.create({
     image: {
         width: windowWidth,
         height: 500,
+    },
+    phname: {
+        top: -48,
+        backgroundColor: 'rgba(50,50,50,0.5)',
+        color: '#ccc',
+        textAlign: 'center',
+        padding: 6,
+        fontSize: 16,
+        fontWeight: 'bold',
     }
 });
 
-const ImageDetails = (item) => {
-    const [detailedImage, setDetailedImage] = useContext(AppContext);
+const ImageDetails = () => {
 
+    const  {detailedImage} = useContext(DataContext);
     return (
         <View style={styles.container}>
-            <Text>{detailedImage.photographer}</Text>
             <Image source={
                 {
                     uri: detailedImage.photoSRCL
@@ -29,6 +37,7 @@ const ImageDetails = (item) => {
             }
                 style={styles.image}
             />
+            <Text style={styles.phname}>{detailedImage.photographer}</Text>
         </View>
     )
 }

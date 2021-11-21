@@ -1,5 +1,5 @@
-import React, { useState, useRef, useContext } from 'react';
-import { AppContext } from '../../ContextAPI/provider';
+import React, { useState, useContext } from 'react';
+import { DataContext } from '../../ContextAPI/provider';
 import { View, Text, FlatList, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -49,21 +49,21 @@ const styles = StyleSheet.create({
 const ImageList = ({ photos, navigation }) => {
 
     const [likedPhotos, setLikedPhotos] = useState([]);
-    const [detailedImage, setDetailedImage] = useContext(AppContext);
+    const {detailedImage, setDetailedImage} = useContext(DataContext);
 
-    const handlePress = (item) => {
+    const handleLike = (item) => {
         likedPhotos.includes(item)
             ? setLikedPhotos((prevState) => prevState.filter(itemToRemove => itemToRemove !== item))
             : setLikedPhotos((prevState) => [...prevState, item]);
     }
+    const handleDetail = (item) => {
+        setDetailedImage(item);
+        navigation.navigate('Detailed');
+    }
 
     const renderItem = (({ item }) => (
         <View style={styles.item}>
-            <TouchableOpacity onPress={() => {
-                setDetailedImage({ object: detailedObject });
-                navigation.navigate('Detailed');
-            }
-            }>
+            <TouchableOpacity onPress={()=>handleDetail(item)}>
                 <Image source={
                     {
                         uri: item.photoSRCL
@@ -82,7 +82,7 @@ const ImageList = ({ photos, navigation }) => {
                             ? ('yellow')
                             : ('white')
                     }
-                    onPress={() => handlePress(item)}
+                    onPress={() => handleLike(item)}
                 />
             </View>
         </View>

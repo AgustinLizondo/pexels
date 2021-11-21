@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagesShower from './screens/home/components/ImagesShower';
 import ImageDetails from './screens/detailed/components/ImageDetails';
-import MyProvider from './screens/ContextAPI/provider';
+import DataProvider from './screens/ContextAPI/provider';
 
 // import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
@@ -18,7 +18,8 @@ const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
   textInput: {
-    padding: 16,
+    padding: 8,
+    marginTop: 32,
   },
 }
 )
@@ -28,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('programming');
 
   return (
-    <MyProvider style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TextInput
           style={styles.textInput}
           onChangeText={
@@ -37,21 +38,21 @@ const HomeScreen = ({ navigation }) => {
           placeholder='Search'
         />
         <ImagesShower searchTerm={searchTerm} navigation={navigation} />
-    </MyProvider>
+    </View>
   )
 }
 const ProfileScreen = () => {
   return (
-    <MyProvider style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Profile</Text>
-    </MyProvider>
+    </View>
   )
 }
-export const DetailedScreen = ({ item }) => {
+export const DetailedScreen = () => {
   return (
-    <MyProvider style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ImageDetails img={item} />
-    </MyProvider>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ImageDetails />
+    </View>
   )
 }
 
@@ -81,13 +82,15 @@ const ChangingIcon = ({ route }) => ({
 export default function App() {
   // const { landscape } = useDeviceOrientation();
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={ChangingIcon}>
-        <Tab.Screen name='Home' component={HomeScreen} />
-        <Tab.Screen name='Profile' component={ProfileScreen} />
-        <Tab.Screen name='Detailed' component={DetailedScreen} />
-      </Tab.Navigator>
-    </NavigationContainer >
+    <DataProvider>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={ChangingIcon}>
+          <Tab.Screen name='Home' component={HomeScreen} />
+          <Tab.Screen name='Profile' component={ProfileScreen} />
+          <Tab.Screen name='Detailed' component={DetailedScreen} />
+        </Tab.Navigator>
+      </NavigationContainer >
+    </DataProvider>
   );
 }
