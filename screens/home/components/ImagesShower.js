@@ -18,6 +18,7 @@ const ImagesShower = ({ navigation }) => {
                 photographerURL: element.photographer_url,
                 photoSRCM: element.src.medium,
                 photoSRCL: element.src.large,
+                avgPhotoColor: element.avg_color,
             };
             setPhotos((actualPhotoState) => [...actualPhotoState, photo])
         });

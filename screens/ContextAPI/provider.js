@@ -14,11 +14,12 @@ const defaultContent = {
 
 const DataProvider = ({ children }) => {
 
+    const [likedPhotos, setLikedPhotos] = useState([]);
     const [detailedImage, setDetailedImage] = useState(defaultContent);
-    const [searchTerm, setSearchTerm] = useState('programming');
+    const [searchTerm, setSearchTerm] = useState('random');
 
     return (
-        <DataContext.Provider value={{detailedImage, setDetailedImage, searchTerm, setSearchTerm}}>
+        <DataContext.Provider value={{detailedImage, setDetailedImage, searchTerm, setSearchTerm, likedPhotos, setLikedPhotos}}>
              {children}
         </DataContext.Provider>
     )

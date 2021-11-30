@@ -6,6 +6,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagesShower from './screens/home/components/ImagesShower';
 import ImageDetails from './screens/detailed/components/ImageDetails';
 import DataProvider, { DataContext } from './screens/ContextAPI/provider';
+import LikedImages from './screens/liked/LikedImages';
+import SearchingBar from './screens/home/components/SearchingBar';
 
 // import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
@@ -16,29 +18,11 @@ const White = '#fffcf2';
 const Orange = '#eb5e28';
 const Tab = createBottomTabNavigator();
 
-const styles = StyleSheet.create({
-  textInput: {
-    padding: 8,
-    marginTop: 48,
-  },
-}
-)
-
 const HomeScreen = ({ navigation }) => {
-
-  const { setSearchTerm } = useContext(DataContext);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={
-          (text) => {
-            setSearchTerm(text);
-          }
-        }
-        placeholder='Search'
-      />
+      <SearchingBar/>
       <ImagesShower navigation={navigation} />
     </View>
   )
@@ -46,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
 const ProfileScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Profile</Text>
+      <LikedImages/>
     </View>
   )
 }
@@ -66,10 +50,10 @@ const ChangingIcon = ({ route }) => ({
       iconName = focused
         ? 'home-sharp'
         : 'home-outline';
-    } else if (route.name === 'Profile') {
+    } else if (route.name === 'Liked') {
       iconName = focused
-        ? 'person-sharp'
-        : 'person-outline';
+        ? 'star'
+        : 'star-outline';
     } else if (route.name === 'Detailed') {
       iconName = focused
         ? 'information-circle'
@@ -77,7 +61,7 @@ const ChangingIcon = ({ route }) => ({
     }
     return <Ionicons name={iconName} size={size} color={color} />;
   },
-  tabBarActiveTintColor: Orange,
+  tabBarActiveTintColor: Dark,
   tabBarInactiveTintColor: Gray,
 });
 
@@ -89,7 +73,7 @@ export default function App() {
         <Tab.Navigator
           screenOptions={ChangingIcon}>
           <Tab.Screen name='Home' component={HomeScreen} />
-          <Tab.Screen name='Profile' component={ProfileScreen} />
+          <Tab.Screen name='Liked' component={ProfileScreen} />
           <Tab.Screen name='Detailed' component={DetailedScreen} />
         </Tab.Navigator>
       </NavigationContainer >

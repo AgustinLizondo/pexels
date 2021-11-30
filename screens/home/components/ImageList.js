@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
 
 const ImageList = ({ photos, navigation }) => {
 
-    const [likedPhotos, setLikedPhotos] = useState([]);
-    const { setDetailedImage} = useContext(DataContext);
+    const { likedPhotos, setLikedPhotos } = useContext(DataContext);
+    const { setDetailedImage } = useContext(DataContext);
 
     const handleLike = (item) => {
         likedPhotos.includes(item)

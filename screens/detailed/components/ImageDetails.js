@@ -49,9 +49,3 @@ const ImageDetails = () => {
 }
 
 export default ImageDetails
-
-// id: 945375,
-// photographer: 'Photographer Name',
-// photographerURL: null,
-// photoSRCM: DEFAULT_IMAGE,
-// photoSRCL: DEFAULT_IMAGE,
